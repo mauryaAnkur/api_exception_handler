@@ -1,7 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'dart:convert';
 
-import 'api_bloc/api_bloc.dart';
+import 'package:api_exception_handler/API%20Handler/BaseClient.dart';
+import 'package:api_exception_handler/api_exception_handler.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,31 +27,43 @@ class MyApp extends StatelessWidget {
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
 
-  final ApiBloc _apiBloc = ApiBloc();
-
   @override
   Widget build(BuildContext context) {
-    _apiBloc.add(GetData());
     return Scaffold(
-      body: BlocProvider<ApiBloc>(
-        create: (_) => _apiBloc,
-        child: BlocListener<ApiBloc, ApiState>(
-          listener: (context, state) {},
-          child: BlocBuilder<ApiBloc, ApiState>(
-            builder: (context, state) {
-              if(state is ApiLoading) {
-                return Center(child: CircularProgressIndicator(),);
-              } else if(state is ApiError) {
-                return Center(child: Text(state.message.toString()),);
-              } else if(state is ApiLoaded) {
-                return Center(child: Text(state.data.toString()),);
-              } else {
-                return Center(child: Text('Error ///'),);
-              }
-            },
+      body: Container(
+        child: APIResponseHandler(
+          function: fetchData(),
+          successScreen: (data) {
+            return Container(
+              child: Text(data.toString()),
+            );
+          },
+          errorScreen: (data) {
+            return Container(
+              child: Text(data.toString()),
+            );
+          },
+          networkErrorScreen: Container(
+            child: Text('Cannot establish connection with server!!'),
+          ),
+          loadingScreen: Center(
+            child: CupertinoActivityIndicator(),
           ),
         ),
       ),
     );
   }
+}
+
+Future fetchData() async {
+  // var response = await BaseClient().get('https://app.nodeadscoin.com/backend/public/api/orders/get');  ///---  not found  ---///
+  // var response = await BaseClient().get('https://server.finexnode.com/user-crypto/get');   ///---  unAuthenticated  ---///
+  var response = await BaseClient().get('https://server.finexnode.com/list-crypto/get');   ///---  unAuthenticated  ---///
+
+  var data = json.decode(response);
+  // log('data ====>>>   ${response}');
+
+  return data;
+  // coinsList = Coin.fromJson(data);
+  // return Coin.fromJson(data);
 }
