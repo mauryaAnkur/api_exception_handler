@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class APIResponseHandler extends StatelessWidget {
 
   final Future<Object?>? function;
-  final Widget Function(Object?)? successScreen;
+  final Widget Function(AsyncSnapshot?)? successScreen;
   final Widget loadingScreen;
   final Widget networkErrorScreen;
   final Widget Function(Object?)? errorScreen;
@@ -25,7 +25,7 @@ class APIResponseHandler extends StatelessWidget {
       builder: (BuildContext context, snapshot) {
         if(snapshot.hasData) {
           print('snapshot ====>>   ${snapshot.data}');
-          return successScreen!(snapshot.data);
+          return successScreen!(snapshot);
           // return Center(child: Text(snapshot.data.toString()));
         } else if(snapshot.hasError) {
           return errorScreen!(snapshot.error);
