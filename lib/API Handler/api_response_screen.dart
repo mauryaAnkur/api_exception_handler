@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 
 class APIResponseHandler extends StatelessWidget {
 
-  final Future<Object?>? function;
+  final Iterable<Future>? function;
   final Widget Function(AsyncSnapshot?)? successScreen;
   final Widget loadingScreen;
   final Widget networkErrorScreen;
@@ -21,23 +21,18 @@ class APIResponseHandler extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: function,
+      future: Future.wait(function!),
       builder: (BuildContext context, snapshot) {
         if(snapshot.hasData) {
-          print('snapshot ====>>   ${snapshot.data}');
           return successScreen!(snapshot);
-          // return Center(child: Text(snapshot.data.toString()));
         } else if(snapshot.hasError) {
           return errorScreen!(snapshot.error);
-          // return Center(child: Text(snapshot.error.toString()));
         } else if(snapshot.connectionState == ConnectionState.waiting) {
           return loadingScreen;
-          // return const Center(child: Text('Waiting....'));
         } else if(snapshot.connectionState == ConnectionState.none) {
           return networkErrorScreen;
-          // return const Center(child: Text('Cannot establish connection with server!!'));
         }
-        return const Center(child: CircularProgressIndicator(),);
+        return const Center(child: CupertinoActivityIndicator(radius: 18,),);
       },
     );
   }
