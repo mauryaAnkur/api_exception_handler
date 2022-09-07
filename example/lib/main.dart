@@ -83,7 +83,11 @@ class _HomeScreenState extends State<HomeScreen> {
 Future fetchData() async {
   String url = 'https://api.covid19api.com/summary';
 
-  var response = await BaseClient().get(url, {'': ''}, '');
+  final parameters = {
+    '': '',
+  };
+
+  var response = await BaseClient().get(url: url, queryParameters: parameters);
   var data = json.decode(response);
 
   return data;

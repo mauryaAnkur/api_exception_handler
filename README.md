@@ -14,7 +14,7 @@ dependencies:
 Future fetchData() async {
   String url = 'https://api.covid19api.com/summary';
 
-  var response = await BaseClient().get(url, {'': ''}, '');
+  var response = await BaseClient().get(url: url);
   var data = json.decode(response);
 
   return data;
