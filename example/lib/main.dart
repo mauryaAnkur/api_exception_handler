@@ -45,6 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
           return Text(data!.data[0].toString());
         },
         errorScreen: (data) {
+          print('error data ==  $data');
           return SizedBox(
             width: MediaQuery.of(context).size.width,
             child: Column(
@@ -81,7 +82,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
 Future fetchData() async {
-  String url = 'https://api.covid19api.com/summary';
+  // String url = 'https://api.covid19api.com/summary/mm';
+  String url = 'https://api.mindbodyonline.com/public/v6/sale/giftcards';
 
   final parameters = {
     '': '',

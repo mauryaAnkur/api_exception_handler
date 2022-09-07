@@ -160,7 +160,7 @@ class UnProcessableEntityException extends AppException {
 
 class InternalServerException extends AppException {
   InternalServerException([String? message, String? url])
-      : super(message, 'Internal server error!!', url);
+      : super(message, 'Internal server error!!', url,);
 }
 
 class NotImplementedException extends AppException {

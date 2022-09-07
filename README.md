@@ -5,7 +5,7 @@
 ### Add dependency
 ````
 dependencies:
-  api_exception_handler: ^0.0.1
+  api_exception_handler: ^0.0.3
 ````
 
 ## Super simple to use 

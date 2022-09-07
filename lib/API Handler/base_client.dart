@@ -22,6 +22,7 @@ class BaseClient {
       }).timeout(const Duration(seconds: timeOutDuration));
       return processResponse(response);
     } catch (e) {
+      print('catch @@@@');
       throw ExceptionHandlers().getExceptionString(e);
     }
   }

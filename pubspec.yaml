@@ -1,10 +1,10 @@
 name: api_exception_handler
 description: API Exception Handler is an advance error handler for http request.
-version: 0.0.2
+version: 0.0.3
 homepage: https://github.com/mauryaAnkur/api_exception_handler.git
 
 environment:
-  sdk: ">=2.17.6 <3.0.0"
+  sdk: ">=2.15.0 <3.0.0"
   flutter: ">=1.17.0"
 
 dependencies:

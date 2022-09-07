@@ -9,6 +9,8 @@ import 'exception_classes.dart';
 /// ----- API error with status codes ----- ///
 
 dynamic processResponse(http.Response response) {
+  print('status message:  ${jsonDecode(response.body)['message']}');
+  print('status code:  ${response.statusCode}');
   switch (response.statusCode) {
     case 200:
       var responseJson = response.body;
