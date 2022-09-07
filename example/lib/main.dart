@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: APIResponseHandler(
         function: [fetchData()],
         successScreen: (data) {
-          return Text(data.toString());
+          return Text(data!.data[0].toString());
         },
         errorScreen: (data) {
           return SizedBox(
@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(height: 20,),
                 InkWell(
                   onTap: () {
-                    /// simply call setState(() {}) to refresh data.
+                    /// simply call setState(() {}) to refresh the data.
                     setState(() {});
                   },
                   child: Container(
