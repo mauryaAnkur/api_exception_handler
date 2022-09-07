@@ -1,3 +1,5 @@
+/// Exception Handlers
+
 import 'dart:async';
 import 'dart:io';
 
@@ -5,7 +7,7 @@ import 'exception_classes.dart';
 
 class ExceptionHandlers {
   getExceptionString(error) {
-    if(error is SocketException) {
+    if (error is SocketException) {
       return 'No Internet Connection';
     } else if (error is HttpException) {
       return 'HTTP error occurred';

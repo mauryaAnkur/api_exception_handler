@@ -1,8 +1,8 @@
+/// API Response output
+
 import 'package:flutter/cupertino.dart';
 
-
 class APIResponseHandler extends StatelessWidget {
-
   final Iterable<Future>? function;
   final Widget Function(AsyncSnapshot?)? successScreen;
   final Widget loadingScreen;
@@ -23,16 +23,20 @@ class APIResponseHandler extends StatelessWidget {
     return FutureBuilder(
       future: Future.wait(function!),
       builder: (BuildContext context, snapshot) {
-        if(snapshot.hasData) {
+        if (snapshot.hasData) {
           return successScreen!(snapshot);
-        } else if(snapshot.hasError) {
+        } else if (snapshot.hasError) {
           return errorScreen!(snapshot.error);
-        } else if(snapshot.connectionState == ConnectionState.waiting) {
+        } else if (snapshot.connectionState == ConnectionState.waiting) {
           return loadingScreen;
-        } else if(snapshot.connectionState == ConnectionState.none) {
+        } else if (snapshot.connectionState == ConnectionState.none) {
           return networkErrorScreen;
         }
-        return const Center(child: CupertinoActivityIndicator(radius: 18,),);
+        return const Center(
+          child: CupertinoActivityIndicator(
+            radius: 18,
+          ),
+        );
       },
     );
   }

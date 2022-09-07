@@ -1,6 +1,6 @@
 name: api_exception_handler
 description: API Exception Handler is an advance error handler for http request.
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/mauryaAnkur/api_exception_handler.git
 
 environment:
