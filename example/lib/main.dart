@@ -33,6 +33,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text('API Response Handler'),
       ),
       body: APIResponseHandler(
-        function: [fetchData()],
+        function: [getData()],
         successScreen: (data) {
           return Text(data!.data[0].toString());
         },
@@ -81,9 +88,15 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 
+Future<void> getData() async {
+  var response = await BaseClient().get(url: 'https://api.mindbodyonline.com');
+  print(response.body);
+}
+
 Future fetchData() async {
   // String url = 'https://api.covid19api.com/summary/mm';
-  String url = 'https://api.mindbodyonline.com/public/v6/sale/giftcards';
+  // String url = 'https://api.mindbodyonline.com/public/v6/sale/giftcards';
+  String url = 'https://api.mindbodyonline.com/asd';
 
   final parameters = {
     '': '',

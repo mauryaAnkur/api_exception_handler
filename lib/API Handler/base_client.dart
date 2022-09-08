@@ -22,7 +22,7 @@ class BaseClient {
       }).timeout(const Duration(seconds: timeOutDuration));
       return processResponse(response);
     } catch (e) {
-      print('catch @@@@');
+      print('catch @@@@  $e');
       throw ExceptionHandlers().getExceptionString(e);
     }
   }
