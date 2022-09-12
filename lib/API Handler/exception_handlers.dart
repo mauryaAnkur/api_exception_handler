@@ -1,33 +1,81 @@
-/// Exception Handlers
+/// API Exception Handler
 
 import 'dart:async';
 import 'dart:io';
-
 import 'exception_classes.dart';
 
+/// ExceptionHandlers class handle all types of exceptions
+///
 class ExceptionHandlers {
   getExceptionString(error) {
+    /// Socket Exception
+    ///
+    /// SocketException is a subclass of IOException so
+    /// it’s a checked exception.
+    /// It is the most general exception that
+    /// signals a problem when trying to open or access a socket.
     if (error is SocketException) {
       return 'No Internet Connection';
-    } else if (error is HttpException) {
+    }
+
+    /// Http Exception
+    ///
+    else if (error is HttpException) {
       return 'HTTP error occurred';
-    } else if (error is FormatException) {
+    }
+
+    /// Format Exception
+    ///
+    /// Exception thrown when a string or some other data does
+    /// not have an expected format and cannot be parsed or processed.
+    else if (error is FormatException) {
       return 'Invalid data format';
-    } else if (error is TimeoutException) {
+    }
+
+    /// Timeout Exception
+    ///
+    /// Thrown when a scheduled timeout happens
+    /// while waiting for an async result.
+    else if (error is TimeoutException) {
       return 'Request time out';
-    } else if (error is BadRequestException) {
+    }
+
+    /// BadRequest Exception
+    /// Invalid syntax for this request was provided.
+    else if (error is BadRequestException) {
       return error.message.toString();
-    } else if (error is UnAuthorizedException) {
+    }
+
+    /// UnAuthorized Exception
+    /// You are unauthorized to access the requested resource. Please log in.
+    else if (error is UnAuthorizedException) {
       return error.message.toString();
-    } else if (error is NotFoundException) {
+    }
+
+    /// NotFound Exception
+    else if (error is NotFoundException) {
       return error.message.toString();
-    } else if (error is MethodNotAllowedException) {
+    }
+
+    /// Method not allowed Exception
+    /// This method type is not currently supported.
+    else if (error is MethodNotAllowedException) {
       return error.message.toString();
-    } else if (error is FetchDataException) {
+    }
+
+    /// FetchData Exception
+    else if (error is FetchDataException) {
       return error.message.toString();
-    } else if (error is InternalServerException) {
+    }
+
+    /// Internal server Exception
+    /// Unexpected internal server error.
+    else if (error is InternalServerException) {
       return error.message.toString();
-    } else {
+    }
+
+    /// default error
+    else {
       return 'Unknown error occurred';
     }
   }

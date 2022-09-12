@@ -1,10 +1,8 @@
 import 'dart:convert';
 
-import 'package:api_exception_handler/API%20Handler/base_client.dart';
 import 'package:api_exception_handler/api_exception_handler.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 
 void main() {
   runApp(const MyApp());
@@ -33,10 +31,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   @override
   void initState() {
-    getData();
     super.initState();
   }
 
@@ -47,19 +43,26 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text('API Response Handler'),
       ),
       body: APIResponseHandler(
-        function: [getData()],
+        /// This function will behave as an
+        /// asynchronous function
+        function: [fetchData()],
+
+        /// custom success screen
         successScreen: (data) {
           return Text(data!.data[0].toString());
         },
+
+        /// custom error screen
         errorScreen: (data) {
-          print('error data ==  $data');
           return SizedBox(
             width: MediaQuery.of(context).size.width,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(data.toString()),
-                const SizedBox(height: 20,),
+                const SizedBox(
+                  height: 20,
+                ),
                 InkWell(
                   onTap: () {
                     /// simply call setState(() {}) to refresh the data.
@@ -70,39 +73,42 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Colors.blueAccent,
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
-                    child: const Text('Retry', style: TextStyle(color: Colors.white),),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+                    child: const Text(
+                      'Retry',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
               ],
             ),
           );
         },
-        networkErrorScreen: const Text('Cannot establish connection with server!!'),
+
+        /// custom network error screen
+        networkErrorScreen:
+            const Text('Cannot establish connection with server!!'),
+
+        /// custom loading screen
         loadingScreen: const Center(
-          child: CupertinoActivityIndicator(radius: 20,),
+          child: CupertinoActivityIndicator(
+            radius: 20,
+          ),
         ),
       ),
     );
   }
 }
 
-
-Future<void> getData() async {
-  var response = await BaseClient().get(url: 'https://api.mindbodyonline.com');
-  print(response.body);
-}
-
 Future fetchData() async {
-  // String url = 'https://api.covid19api.com/summary/mm';
-  // String url = 'https://api.mindbodyonline.com/public/v6/sale/giftcards';
-  String url = 'https://api.mindbodyonline.com/asd';
+  String url = 'https://api.covid19api.com/summary/';
 
   final parameters = {
     '': '',
   };
 
-  var response = await BaseClient().get(url: url, queryParameters: parameters);
+  var response = await ApiHandler().get(url: url, queryParameters: parameters);
   var data = json.decode(response);
 
   return data;
