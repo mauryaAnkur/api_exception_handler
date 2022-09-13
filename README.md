@@ -67,13 +67,13 @@ FutureBuilder(
       future: fetchData(),
       builder: (BuildContext context, snapshot) {
         if(snapshot.hasData) {
-          /// <<--->> ///
+          /// success screen
         } else if(snapshot.hasError) {
-          /// <<--->> ///
+          /// error screen
         } else if(snapshot.connectionState == ConnectionState.waiting) {
-          /// <<--->> ///
+          /// loading screen
         } else if(snapshot.connectionState == ConnectionState.none) {
-          /// <<--->> ///
+          /// network error screen
         }
         return const Center(child: CupertinoActivityIndicator(radius: 18,),);
       },
